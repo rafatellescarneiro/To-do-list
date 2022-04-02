@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;500;600&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./imagens/favicon.ico" type="image/x-icon">
+    <script src="app.js" type="module"></script>
+
+    <title>API - Lista de Compras</title>
+</head>
+<body>
+    
+    <header>
+        <div class="center">
+            <div class="logo">
+                <img src="" alt="">
+            </div>
+            <div class="menu">
+                <a href="#">
+                    Nova Lista
+                </a>
+                <a href="#">
+                    Salvar Lista
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="main">
+        <div class="header">
+            <h1>Lista de compras</h1>
+        </div>
+
+        <div class="center">
+
+            
+            <div class="lista-box">
+                <ul id="lista"></ul>
+                <label>
+                    <h3>Qual produto deseja adicionar?</h3>
+                    <input 
+                    type="text" 
+                    id="nome-prod"
+                    placeholder="Digite o nome do Produto a ser adicionado" >
+                    <button id="botao-adicionar">Adicionar Produto</button>
+                    <button id="botao-deletar">Limpar Lista</button>
+                </label>
+                
+                
+                
+                <div class="main-box">
+                    <div class="form-check">
+                        <ul id="lista"></ul>
+                        <label class="form-check-label" >
+                          <input 
+                          class="form-check-input" 
+                          type="checkbox" 
+                          value="">
+                          Default checkbox
+                        </label>
+                    </div>
+                    <br>
+                    <button id="deletar-comprado">Remover itens marcados</button>
+                </div>
+            </div>
+           
+            <div class="total-prod">
+                <h2>Total: </h2> <br/>
+                <p id="real-cifrao">R$ <p id="valor-total">0,00</p></p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

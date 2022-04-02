@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+
+body{
+    background-image: -webkit-linear-gradient(45deg, black, grey);
+}
+
+.center{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2%;
+    display: flex;
+   
+}
+
+header{
+    width: 100%;
+    background-image: -webkit-linear-gradient(45deg, black, grey);
+    padding: 15px 5px;
+    border-bottom: 1px solid grey;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.menu{
+    width: 80%;
+    display: flex;
+}
+
+.menu a{
+    padding: 2vh;
+    color: #faf5f0;
+    font-size: 18px;
+    text-decoration: none;
+    margin-right: 20px;
+    display: inline-block;
+    background-color: #55a0f0;
+    border: #55a0f0;
+    border-radius: 8px;
+}
+
+.menu a:hover{
+    color: #007bff;
+}
+
+section.main{
+    
+    background-image: url('./imagens/bkg-lista.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 70px 00px;
+    background-position: center;    
+}
+
+h1{
+    font-size: 45px;
+    text-align: center;
+}
+
+h2{
+    color: #020105;
+}
+
+h3{
+    color: whitesmoke;
+}
+
+input{
+    width: 350px;
+    padding: 1vh;
+
+}
+
+button{
+    padding: 1vh;
+    background-color: #55a0f0;
+    border: #55a0f0;
+    border-radius: 8px;
+    color: #faf5f0;
+}
+
+button:hover{
+    color: #007bff;
+}
+
+p{
+    display: inline-block;
+}
+
+
+.header{
+    padding-top:1.5em; 
+    
+}
+
+.lista-box{
+    width: 975px;
+    background-color: grey;
+    display: block;
+    padding: 50px 50px;
+    box-shadow: 7px 7px 2px rgb(70, 69, 69);
+    border-radius: 8px;
+   
+}
+
+.total-prod{
+    display: block;
+    width: 350px;
+    margin: auto;
+    padding: 50px 50px;
+    text-align: center;
+    
+}
+
