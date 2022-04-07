@@ -29,15 +29,16 @@ function removeItem(id) {
 }
 
 
-function updateScreen(tarefa, status, id){
+function updateScreen(status, indice){
     label.innerHTML = '';
 
     lista.forEach(function(item){
     const item1 = document.createElement('label');
     item1.classList.add('lista')
+    item1.id = `i${item.id}`;
     item1.innerHTML = `
-      <input type="checkbox" ${status} data-indice=${id}>
-      <div class="divmon">${tarefa}</div>
+      <input type="checkbox" ${status} data-indice=${indice}>
+      <div class="divmon">${item.name}</div>
     `;
     const btn = document.createElement('button');
     btn.innerHTML = 'x';
@@ -51,25 +52,28 @@ function updateScreen(tarefa, status, id){
 
   
 
-function saveStorage() {
-  const listaJSON = JSON.stringify(lista);
-  localStorage.setItem('lista', listaJSON);
-}
-
-
-function addItem() {
-  
-  if (campo.value) {
-    lista.push({'descricao': campo.value,
-      'status': ''
-    });
-    campo.value = '';
-    updateScreen();
-    saveStorage();
-  } else {
-    alert('Insira o nome de um item!');
+  function saveStorage() {
+    
+    const listaJSON = JSON.stringify(lista);
+    localStorage.setItem('lista', listaJSON);
   }
-}
+
+  function addItem() {
+    
+    if (campo.value) {
+      
+      lista.push({
+        id: Date.now(),
+        name: campo.value
+      });
+      
+      campo.value = '';
+      updateScreen();
+      saveStorage();
+    } else {
+      alert('Insira o nome de um item!');
+    }
+  }
 
 
 btnAdd.addEventListener('click', addItem);
