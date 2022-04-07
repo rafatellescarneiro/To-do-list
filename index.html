@@ -18,67 +18,59 @@
     
     <header>
         <div class="center">
-            <div class="logo">
-                <img src="" alt="">
-            </div>
             <div class="menu">
-                <a href="#">
-                    Nova Lista
+                <a href="#" id="inicio">
+                    Início
                 </a>
-                <a href="#">
-                    Salvar Lista
-                </a>
+                <h1>Lista de compras</h1>
             </div>
         </div>
     </header>
     
     <section class="main">
-        <div class="header">
-            <h1>Lista de compras</h1>
-        </div>
-
+        
         <div class="center">
 
-            
-            <div class="lista-box">
-                <ul id="lista"></ul>
+        <div class="columns">
+            <div class="lista-box">   
                 <label>
                     <h3>Qual produto deseja adicionar?</h3>
                     <input 
                     type="text" 
                     id="nome-prod"
-                    placeholder="Digite o nome do Produto a ser adicionado" >
-                    <button id="botao-adicionar">Adicionar Produto</button>
-                    <button id="botao-deletar">Limpar Lista</button>
+                    placeholder="Digite o nome do Produto a ser adicionado" 
+                    maxlength="66"
+                    autofocus>
+                    <button class="botao-add" id="botao-add">Adicionar Produto</button>
+                    <button class="botao-del" id="botao-del">Limpar Lista</button>                 
+                    
                 </label>
+                    <hr>
                 
                 
-                
-                <div class="main-box">
-                    <div class="form-check">
-                        <ul id="lista"></ul>
-                        <label class="form-check-label" >
-                          <input 
-                          class="form-check-input" 
-                          type="checkbox" 
-                          value="">
-                          Default checkbox
-                        </label>
-                    </div>
-                    <br>
-                    <button id="deletar-comprado">Remover itens marcados</button>
-                </div>
-            </div>
-           
+                    <div class="main-box">
+                        <div class="lista" id="lista">
+                            
+                        </div><!--lista-->
+                         <br>
+                        <hr>
+                        <button class="del-check">Remover itens marcados</button>
+                    </div><!--main-box-->
+                </div><!--lista-box-->
+            </div><!--colunms-->
+
             <div class="total-prod">
                 <h2>Total: </h2> <br/>
                 <p id="real-cifrao">R$ <p id="valor-total">0,00</p></p>
-            </div>
-        </div>
+            </div><!--total-prod-->
+        </div><!--center-->
     </section>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    
+   <footer>&copy Rafael T Caneiro</footer>
+   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   <script src="https://kit.fontawesome.com/16544f2866.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
