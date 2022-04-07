@@ -5,17 +5,14 @@
     font-family: 'Jost', sans-serif;
 }
 
-body{
-    background-image: -webkit-linear-gradient(45deg, black, grey);
-}
-
 .center{
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 2%;
     display: flex;
-   
 }
+
+
 
 header{
     width: 100%;
@@ -26,41 +23,48 @@ header{
     position: fixed;
     left: 0;
     top: 0;
+    display: inline;
 }
 
 .menu{
     width: 80%;
+    text-align: center;
+    padding-top:1.5em; 
     display: flex;
+    width: 800px;
+    color: whitesmoke;
 }
+
 
 .menu a{
     padding: 2vh;
     color: #faf5f0;
-    font-size: 18px;
+    font-size: 20px;
     text-decoration: none;
     margin-right: 20px;
     display: inline-block;
     background-color: #55a0f0;
     border: #55a0f0;
-    border-radius: 8px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .menu a:hover{
     color: #007bff;
 }
 
+h1{
+    font-size: 45px;
+
+}
+
 section.main{
-    
+    margin-top: 100px;
     background-image: url('./imagens/bkg-lista.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 70px 00px;
+    padding: 70px 50px;
     background-position: center;    
-}
-
-h1{
-    font-size: 45px;
-    text-align: center;
 }
 
 h2{
@@ -72,49 +76,126 @@ h3{
 }
 
 input{
-    width: 350px;
+    width: 450px;
     padding: 1vh;
-
+    border-radius: 5px;
+    border: none;
 }
 
-button{
+.botao-add{
     padding: 1vh;
     background-color: #55a0f0;
     border: #55a0f0;
-    border-radius: 8px;
+    border-radius: 5px;
+    color: #faf5f0;
+    width: 175px;
+}
+
+.botao-add:hover{
+    color: #007bff;
+}
+
+.botao-del{
+    padding: 1vh;
+    background-color: #55a0f0;
+    border: #55a0f0;
+    border-radius: 5px;
+    color: #faf5f0;
+    float: left;
+    margin-top: 20px;
+}
+
+.botao-del:hover{
+    color: #007bff;
+}
+
+button{
+    float: right;
+    border: none;
+}
+
+
+.del-check{
+    padding: 1vh;
+    background-color: #55a0f0;
+    border: #55a0f0;
+    border-radius: 5px;
     color: #faf5f0;
 }
 
-button:hover{
+.del-check:hover{
     color: #007bff;
 }
+
+
+
 
 p{
     display: inline-block;
 }
 
+li{
+    color: rgb(233, 192, 10);
 
-.header{
-    padding-top:1.5em; 
-    
+}
+
+hr{
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.columns{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .lista-box{
-    width: 975px;
+    width: 750px;
     background-color: grey;
-    display: block;
     padding: 50px 50px;
+    margin-right: 3%;
     box-shadow: 7px 7px 2px rgb(70, 69, 69);
-    border-radius: 8px;
-   
+    border-radius: 5px;
 }
 
-.total-prod{
-    display: block;
-    width: 350px;
-    margin: auto;
-    padding: 50px 50px;
-    text-align: center;
+label.lista{
+    width: 100%;
+    display: flex;
+    padding: 50px 50;
     
 }
 
+input[type=checkbox]{
+   width: 20px;
+   float: center;
+   height: 25px;
+}
+
+label button{
+    background-color: grey;
+}
+
+.divmon{
+    
+    width: 100%;
+}
+
+.total-prod{
+    padding: 50px 100px;
+    
+}
+
+footer{
+    background-image: -webkit-linear-gradient(45deg, black, grey);
+    color: whitesmoke;
+    padding-bottom: 8%;
+}
+
+@media only screen and (max-width: 600px) {
+    .center {
+     margin: 50px 35px;
+     display: inline;
+    }
+  }
