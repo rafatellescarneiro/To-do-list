@@ -147,7 +147,7 @@ hr{
 }
 
 .columns{
-    display: flex;
+    flex: 1;
     flex-wrap: wrap;
 }
 
@@ -170,8 +170,13 @@ label.lista{
 input[type=checkbox]{
    width: 20px;
    float: center;
-   height: 25px;
+   height: 15px;
+   margin: 5px;
 }
+
+input[type=checkbox]:checked ~.divmon{
+    text-decoration: line-through;
+ }
 
 label button{
     background-color: grey;
@@ -184,7 +189,7 @@ label button{
 
 .total-prod{
     padding: 50px 100px;
-    
+    flex: 2;
 }
 
 footer{
@@ -195,7 +200,8 @@ footer{
 
 @media only screen and (max-width: 600px) {
     .center {
-     margin: 50px 35px;
+    margin: 0 auto;
+    padding: 0 2%;
      display: inline;
     }
   }
