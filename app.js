@@ -3,20 +3,26 @@ const campo = document.getElementById('nome-prod');
 const btnAdd = document.getElementById('botao-add');
 const clearBtn = document.getElementById('botao-del');
 const label = document.getElementById('lista');
-const rmvCheck = document.getElementById('del-check')
+const rmvCheck = document.getElementById('del-check');
 const checkbox = document.getElementById('checkbox');
 
+let valorInf = [];
 let lista = [];
 
 const listaJSON = localStorage.getItem('lista');
+const valorJSON = localStorage.getItem('valorpago')
 
 if (listaJSON) {
-  
   
   lista = JSON.parse(listaJSON);
   updateScreen();
 }
 
+if (valorJSON) {
+  
+  valorInf = JSON.parse(valorJSON);
+  updateScreen();
+}
 
 function removeItem(id) {
   
@@ -35,32 +41,56 @@ function updateScreen(status, indice){
     label.innerHTML = '';
    
 
-    lista.forEach(function(item){
+    lista.forEach(function criarItem(item){
+
     const item1 = document.createElement('label');
-    item1.setAttribute('class', `tod-item ${item.id}`);
+
+    item1.className = 'lista1'
     item1.classList.add('lista')
-    item1.id = `i${item.id}`;
+    item1.id = Math.floor(Math.random() * 2000);
     item1.innerHTML = `
       <input type="checkbox" ${status} data-indice=${indice} id="checkbox">
       <span class="divmon"id="divmon">${item.name}</span>
-    `;
+    `;   
+
+    
 
     const btn = document.createElement('button');
     btn.innerHTML = 'x';
     btn.onclick = function () {
       removeItem(item.id);
     }
+
     item1.appendChild(btn);
+
     document.getElementById('lista').appendChild(item1)
-    });   
 
     
+    const popup = document.querySelector('.modalId')
+    
+     document.querySelectorAll('span').forEach(item =>{
+       item.addEventListener('click', ()=>{
+           popup.style.display = 'block'
+    })
+    
+    })
+
+    popup.onclick = event => {
+      const clicked = event.target.classList[0];
+        if(clicked === 'popup-close' || clicked === 'modalId'){
+          popup.style.display = 'none';    
+      } 
+    }
+  
+  })
 }
 
 function saveStorage() {
     
     const listaJSON = JSON.stringify(lista);
     localStorage.setItem('lista', listaJSON);
+    const valorJSON = JSON.stringify(valorInf);
+    localStorage.setItem('valorpago', valorJSON)
 }
 
 function addItem() {
@@ -92,24 +122,41 @@ function clearList(item){
 
 function removeCheck(){
     var doc = document.querySelectorAll('.lista1');
-    doc.forEach(item => {
-     if(item.querySelector('input').checked){
-       item.remove()
+    doc.forEach(x => {
+     if(x.querySelector('input').checked){
+       x.remove()
      }
-    })
-    
-    saveStorage();
-
+     saveStorage();
+    });
 }
 
+const btnCalc = document.querySelector('.okdok');
 
-
- 
 
 btnAdd.addEventListener('click', addItem);
 clearBtn.addEventListener('click', clearList);
-rmvCheck.addEventListener('click', removeCheck)
-  
+rmvCheck.addEventListener('click', removeCheck);
+
+btnCalc.addEventListener('click', (e) =>{
+  e.preventDefault();
+
+  let preco = document.querySelector('#valorpago');
+  let total = document.querySelector('#valueAdd');
+  var doc = document.querySelectorAll('.lista1');
+  let valor = preco.value;
+
+    if(valor <= 0){
+      alert('digite um valor')
+    }else if(valor > 0){
+      valorInf.forEach(total.value += valor) 
+    }
+  limpaCampo
+ 
+})
+
+function limpaCampo(){
+  document.getElementById('valorpago').value = '0,00';
+}
 
 campo.addEventListener('keydown', function (event) {
   
@@ -118,3 +165,4 @@ campo.addEventListener('keydown', function (event) {
     addItem();
   }
 });
+
