@@ -3,20 +3,29 @@ const campo = document.getElementById('nome-prod');
 const btnAdd = document.getElementById('botao-add');
 const clearBtn = document.getElementById('botao-del');
 const label = document.getElementById('lista');
-const rmvCheck = document.getElementById('del-check')
+const rmvCheck = document.getElementById('del-check');
 const checkbox = document.getElementById('checkbox');
+let valorPago = document.getElementById('valueAdd');
+let inputValor = document.getElementById('valorpago')
+const btnCalc = document.getElementById('okdok');
 
+var valorInf = [];
 let lista = [];
 
 const listaJSON = localStorage.getItem('lista');
+let valorJSON = localStorage.getItem('valorpago');
 
 if (listaJSON) {
-  
   
   lista = JSON.parse(listaJSON);
   updateScreen();
 }
 
+if (valorJSON) {
+  
+  valorInf = JSON.parse(valorJSON);
+  updateScreen();
+}
 
 function removeItem(id) {
   
@@ -35,32 +44,56 @@ function updateScreen(status, indice){
     label.innerHTML = '';
    
 
-    lista.forEach(function(item){
+    lista.forEach(function criarItem(item){
+
     const item1 = document.createElement('label');
-    item1.setAttribute('class', `tod-item ${item.id}`);
+
+    item1.className = 'lista1'
     item1.classList.add('lista')
-    item1.id = `i${item.id}`;
+    item1.id = Math.floor(Math.random() * 2000);
     item1.innerHTML = `
       <input type="checkbox" ${status} data-indice=${indice} id="checkbox">
       <span class="divmon"id="divmon">${item.name}</span>
-    `;
+    `;   
+
+    
 
     const btn = document.createElement('button');
     btn.innerHTML = 'x';
     btn.onclick = function () {
       removeItem(item.id);
     }
+
     item1.appendChild(btn);
+
     document.getElementById('lista').appendChild(item1)
-    });   
 
     
+    const popup = document.querySelector('.modalId')
+    
+     document.querySelectorAll('span').forEach(item =>{
+       item.addEventListener('click', ()=>{
+           popup.style.display = 'block'
+    })
+    
+    })
+
+    popup.onclick = event => {
+      const clicked = event.target.classList[0];
+        if(clicked === 'popup-close' || clicked === 'modalId'){
+          popup.style.display = 'none';    
+      } 
+    }
+  
+  })
 }
 
 function saveStorage() {
     
     const listaJSON = JSON.stringify(lista);
     localStorage.setItem('lista', listaJSON);
+    const valorJSON = JSON.stringify(valorInf);
+    localStorage.setItem('valorpago', valorJSON)
 }
 
 function addItem() {
@@ -92,24 +125,51 @@ function clearList(item){
 
 function removeCheck(){
     var doc = document.querySelectorAll('.lista1');
-    doc.forEach(item => {
-     if(item.querySelector('input').checked){
-       item.remove()
+    doc.forEach(x => {
+     if(x.querySelector('input').checked){
+       x.remove()
      }
-    })
-    
+     saveStorage();
+    });
+}
+
+function adicionarValor(){
+
+  if (inputValor.value) {
+      
+    valorInf.push(inputValor.value);
+    console.log(valorInf)
     saveStorage();
+    somarItens()
+  } else {
+    alert('Insira o valor do produto!');
+  }
+  
+}
+
+function somarItens(){
+  
+  let total = document.getElementById('valueAdd').value
+  let soma = 0;
+  for(var i= 0; i < valorInf.length; i++){
+  soma += parseFloat(valorInf[i]);
+  }  
+
+  total += soma;
+  saveStorage();
+
+  document.querySelector('#valueAdd').innerHTML = `R$${total}`
 
 }
 
-
-
- 
-
+btnCalc.addEventListener('click', adicionarValor);
 btnAdd.addEventListener('click', addItem);
 clearBtn.addEventListener('click', clearList);
-rmvCheck.addEventListener('click', removeCheck)
-  
+rmvCheck.addEventListener('click', removeCheck);
+
+function limpaCampo(){
+  document.getElementById('valorpago').value = '';
+}
 
 campo.addEventListener('keydown', function (event) {
   
@@ -118,3 +178,12 @@ campo.addEventListener('keydown', function (event) {
     addItem();
   }
 });
+
+inputValor.addEventListener('keydown', function (event) {
+  
+  if (event.key === 'Enter') {
+    
+  }
+});
+
+
