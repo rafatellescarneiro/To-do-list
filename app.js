@@ -5,12 +5,15 @@ const clearBtn = document.getElementById('botao-del');
 const label = document.getElementById('lista');
 const rmvCheck = document.getElementById('del-check');
 const checkbox = document.getElementById('checkbox');
+let valorPago = document.getElementById('valueAdd');
+let inputValor = document.getElementById('valorpago')
+const btnCalc = document.getElementById('okdok');
 
-let valorInf = [];
+var valorInf = [];
 let lista = [];
 
 const listaJSON = localStorage.getItem('lista');
-const valorJSON = localStorage.getItem('valorpago')
+let valorJSON = localStorage.getItem('valorpago');
 
 if (listaJSON) {
   
@@ -130,32 +133,42 @@ function removeCheck(){
     });
 }
 
-const btnCalc = document.querySelector('.okdok');
+function adicionarValor(){
 
+  if (inputValor.value) {
+      
+    valorInf.push(inputValor.value);
+    console.log(valorInf)
+    saveStorage();
+    somarItens()
+  } else {
+    alert('Insira o valor do produto!');
+  }
+  
+}
 
+function somarItens(){
+  
+  let total = document.getElementById('valueAdd').value
+  let soma = 0;
+  for(var i= 0; i < valorInf.length; i++){
+  soma += parseFloat(valorInf[i]);
+  }  
+
+  total += soma;
+  saveStorage();
+
+  document.querySelector('#valueAdd').innerHTML = `R$${total}`
+
+}
+
+btnCalc.addEventListener('click', adicionarValor);
 btnAdd.addEventListener('click', addItem);
 clearBtn.addEventListener('click', clearList);
 rmvCheck.addEventListener('click', removeCheck);
 
-btnCalc.addEventListener('click', (e) =>{
-  e.preventDefault();
-
-  let preco = document.querySelector('#valorpago');
-  let total = document.querySelector('#valueAdd');
-  var doc = document.querySelectorAll('.lista1');
-  let valor = preco.value;
-
-    if(valor <= 0){
-      alert('digite um valor')
-    }else if(valor > 0){
-      valorInf.forEach(total.value += valor) 
-    }
-  limpaCampo
- 
-})
-
 function limpaCampo(){
-  document.getElementById('valorpago').value = '0,00';
+  document.getElementById('valorpago').value = '';
 }
 
 campo.addEventListener('keydown', function (event) {
@@ -165,4 +178,12 @@ campo.addEventListener('keydown', function (event) {
     addItem();
   }
 });
+
+inputValor.addEventListener('keydown', function (event) {
+  
+  if (event.key === 'Enter') {
+    
+  }
+});
+
 
