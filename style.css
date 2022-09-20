@@ -166,32 +166,21 @@ hr{
     border-radius: 5px;
 }
 
-label.lista{
-    width: 100%;
+.listados{
     display: flex;
-    padding: 50px 50;
-    
 }
+
 
 input[type=checkbox]{
    width: 25px;
    float: center;
-   height: 20px;
+   height: 15px;
    margin: 5px;
 }
 
 input[type=checkbox]:checked ~.divmon{
     text-decoration: line-through;
  }
-
-label button{
-    background-color: grey;
-}
-
-.divmon{
-    
-    width: 100%;
-}
 
 .total-prod{
     padding: 100px 100px;
@@ -234,8 +223,6 @@ label button{
     border-radius: 10px;
 }
 
-
-
 .popup-close{
     position: absolute;
     top: 5px;
@@ -249,7 +236,7 @@ footer{
     padding-bottom: 8%; 
 }
 
-.valorpago{
+.valor-pago{
     border: 1px solid black;
 }
 
@@ -260,7 +247,7 @@ footer{
     font-size: 22px;  
 }
 
-.okdok{
+.ok-dok{
     width: 45%;
     position: absolute;
     bottom: 5px;

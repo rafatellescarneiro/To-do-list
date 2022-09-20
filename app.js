@@ -1,189 +1,157 @@
+const adicionar = document.getElementById("botao-add");
+const limpar = document.getElementById("botao-del");
+const remover = document.getElementById("del-check");
+const entrada = document.getElementById("nome-prod");
+const valor = document.getElementById("valor-pago");
+const confirma = document.getElementById("ok-dok"); 
+let total = document.getElementById("add-valor");
+let saida = document.getElementById("main-box");
+let listados = [];
+let valores = [];
 
-const campo = document.getElementById('nome-prod');
-const btnAdd = document.getElementById('botao-add');
-const clearBtn = document.getElementById('botao-del');
-const label = document.getElementById('lista');
-const rmvCheck = document.getElementById('del-check');
-const checkbox = document.getElementById('checkbox');
-let valorPago = document.getElementById('valueAdd');
-let inputValor = document.getElementById('valorpago')
-const btnCalc = document.getElementById('okdok');
+const listaJSON = localStorage.getItem('listados')
+const valorJSON = localStorage.getItem('valores')
 
-var valorInf = [];
-let lista = [];
-
-const listaJSON = localStorage.getItem('lista');
-let valorJSON = localStorage.getItem('valorpago');
-
-if (listaJSON) {
-  
-  lista = JSON.parse(listaJSON);
-  updateScreen();
+if(listaJSON){
+  listados = JSON.parse(listaJSON)
+  atualizarTela()
+}
+if(valorJSON){
+  valores = JSON.parse(valorJSON)
+  atualizarTela()
 }
 
-if (valorJSON) {
-  
-  valorInf = JSON.parse(valorJSON);
-  updateScreen();
+function salvar(){
+  const listaJSON = JSON.stringify(listados);
+  localStorage.setItem('listados', listaJSON);
+
+  const valorJSON = JSON.stringify(valores);
+  localStorage.setItem('valores', valorJSON)
 }
 
-function removeItem(id) {
-  
-  const novaLista = [];
-  lista.forEach(function (item) {
-    if (item.id !== id) {
-      novaLista.push(item);
-    }
-  })
-  lista = novaLista;
-  saveStorage();
-  updateScreen();
+function totais(){
+  let soma = 0
+  for(let i = 0; i< valores.length; i++){
+    soma += parseFloat(valores[i])
+    document.getElementById("add-valor").placeholder = soma
+  }
 }
 
-function updateScreen(status, indice){
-    label.innerHTML = '';
-   
+function atualizarTela(){
+  let saida = document.getElementById('main-box') 
+  saida.innerHTML = ''
 
-    lista.forEach(function criarItem(item){
+  listados.forEach(function (element){
 
-    const item1 = document.createElement('label');
+    const item = document.createElement('label');
+    const box = document.createElement('input');
+    const span = document.createElement('span');
+    const paragraph = document.createElement('p');
 
-    item1.className = 'lista1'
-    item1.classList.add('lista')
-    item1.id = Math.floor(Math.random() * 2000);
-    item1.innerHTML = `
-      <input type="checkbox" ${status} data-indice=${indice} id="checkbox">
-      <span class="divmon"id="divmon">${item.name}</span>
-    `;   
+    box.id = "checkbox";
+    box.type = "checkbox";
+    box.checked = false;
 
+    item.id = element.id
+    item.classList.add('listados')
+
+    span.id = item.id;
+    span.innerHTML = element.nome
+    paragraph.id = item.id
+    paragraph.classList.add('paragraphClass')
+
+    saida.appendChild(item)
+    item.appendChild(span)
+    span.appendChild(paragraph)
+    paragraph.appendChild(box)
     
 
-    const btn = document.createElement('button');
-    btn.innerHTML = 'x';
-    btn.onclick = function () {
-      removeItem(item.id);
-    }
+    totais()
 
-    item1.appendChild(btn);
+    const popup = document.querySelector(".modalId");
 
-    document.getElementById('lista').appendChild(item1)
+    document.querySelectorAll("span").forEach(item =>{
+      item.addEventListener('click', ()=>{
+          popup.style.display = "block"
+      });
+    });
 
-    
-    const popup = document.querySelector('.modalId')
-    
-     document.querySelectorAll('span').forEach(item =>{
-       item.addEventListener('click', ()=>{
-           popup.style.display = 'block'
-    })
-    
-    })
-
-    popup.onclick = event => {
+    popup.onclick = event =>{
       const clicked = event.target.classList[0];
-        if(clicked === 'popup-close' || clicked === 'modalId'){
-          popup.style.display = 'none';    
+        if(clicked === 'popup-close' || clicked === 'modalId' || clicked === 'ok-dok'){
+          if(!valor.value && clicked === 'ok-dok'){
+            popup.style.display = 'none';
+          }
+        popup.style.display = 'none';  
       } 
     }
-  
-  })
+  });
 }
 
-function saveStorage() {
-    
-    const listaJSON = JSON.stringify(lista);
-    localStorage.setItem('lista', listaJSON);
-    const valorJSON = JSON.stringify(valorInf);
-    localStorage.setItem('valorpago', valorJSON)
-}
 
-function addItem() {
-    
-    if (campo.value) {
-      
-      lista.push({
-        id: Date.now(),
-        checked: false,
-        name: campo.value
-      });
-      
-      campo.value = '';
-      updateScreen();
-      saveStorage();
-    } else {
-      alert('Insira o nome de um item!');
-    }
-}
+function addItem(){
+  if((entrada.value).length >= 3){
 
-function clearList(item){
-  var limpar = confirm('Deseja limpar toda lista?')
-    if(limpar === true){
-          lista.splice(item);
-        }
-    saveStorage();
-    updateScreen();
-  } 
-
-function removeCheck(){
-    var doc = document.querySelectorAll('.lista1');
-    doc.forEach(x => {
-     if(x.querySelector('input').checked){
-       x.remove()
-     }
-     saveStorage();
-    });
-}
-
-function adicionarValor(){
-
-  if (inputValor.value) {
-      
-    valorInf.push(inputValor.value);
-    console.log(valorInf)
-    saveStorage();
-    somarItens()
-  } else {
-    alert('Insira o valor do produto!');
+    listados.push({
+      id: listados.length,
+      checked: false,
+      nome: entrada.value
+    })
+    entrada.value = ''
+    salvar();
+    atualizarTela();
+  }else{
+    alert('Insira um item com 3 ou mais caracteres');
+    entrada.value = ''
   }
-  
 }
 
-function somarItens(){
-  
-  let total = document.getElementById('valueAdd').value
-  let soma = 0;
-  for(var i= 0; i < valorInf.length; i++){
-  soma += parseFloat(valorInf[i]);
-  }  
-
-  total += soma;
-  saveStorage();
-
-  document.querySelector('#valueAdd').innerHTML = `R$${total}`
-
+function limparLista(item){
+  var listaLimpa = confirm('Deseja limpar toda lista?')
+  if(listaLimpa === true){
+        listados.splice(item);
+      }
+  salvar();
+  atualizarTela();
 }
 
-btnCalc.addEventListener('click', adicionarValor);
-btnAdd.addEventListener('click', addItem);
-clearBtn.addEventListener('click', clearList);
-rmvCheck.addEventListener('click', removeCheck);
 
-function limpaCampo(){
-  document.getElementById('valorpago').value = '';
+function removerSelecionado(event) {
+  let ckList = document.querySelectorAll("input[type=checkbox]:checked");
+  ckList.forEach(function(el) {
+    el.parentElement.parentElement.remove();
+    let position = listados.indexOf(event.target.value);
+    listados.splice(position, 1);
+    return
+  });
+  salvar();
+  atualizarTela();
 }
 
-campo.addEventListener('keydown', function (event) {
+function precificar(){
+  if(valor.value){
+    valores.push(valor.value)
+    //let paragraph = document.getElementsByClassName('paragraphClass')
+    
+    salvar();
+    atualizarTela();
+  }else{
+    alert('Insira um valor maior que zero');
+    valor.value = 0.00
+  }
+}
+
+
+
+adicionar.addEventListener('click', addItem)
+limpar.addEventListener('click', limparLista)
+remover.addEventListener('click', removerSelecionado)
+confirma.addEventListener('click', precificar)
+
+entrada.addEventListener('keydown', function (event) {
   
   if (event.key === 'Enter') {
    
     addItem();
   }
 });
-
-inputValor.addEventListener('keydown', function (event) {
-  
-  if (event.key === 'Enter') {
-    
-  }
-});
-
-

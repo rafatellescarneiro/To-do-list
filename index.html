@@ -31,52 +31,46 @@
         
         <div class="center">
 
-        <div class="columns">
-            <div class="lista-box">   
-                <label>
-                    <h3>Qual produto deseja adicionar?</h3>
-                    <input 
-                    type="text" 
-                    id="nome-prod"
-                    placeholder="Digite o nome do Produto a ser adicionado" 
-                    maxlength="66"
-                    autofocus>
-                    <button class="botao-add" id="botao-add">Adicionar Produto</button>
-                    <button class="botao-del" id="botao-del">Limpar Lista</button>                 
-                </label>
+            <div class="columns">
+                <div class="lista-box">   
+                    <label>
+                        <h3>Qual produto deseja adicionar?</h3>
+                        <input 
+                        type="text" 
+                        id="nome-prod"
+                        placeholder="Digite o nome do Produto a ser adicionado" 
+                        maxlength="66"
+                        autofocus>
+                        <button class="botao-add" id="botao-add">Adicionar Produto</button>
+                        <button class="botao-del" id="botao-del">Limpar Lista</button>                 
+                    </label>
                     <h4>Clique no produto para informar o preço</h4>
                     <hr>
-                
-                
-                    <div class="main-box">
-                        <div class="lista" id="lista">
-                            
-                            
-                        </div><!--lista-->
-                         <br>
+                    <div class="main-box" id="main-box">
+                            <br>
                         <hr>
-                        <button class="del-check" id="del-check">Remover itens marcados</button>
-                    </div><!--main-box-->
+                    </div><!--main-box-->    
+                    <button class="del-check" id="del-check">Remover itens marcados</button>
                 </div><!--lista-box-->
             </div><!--colunms-->
 
             <div class="total-prod" id="total-prod">
                 <h2>Total: </h2> <br/>
-                <p id="valueAdd" class="valueAdd">0,00</p>
+                <input id="add-valor" class="add-valor" type="number" placeholder="0" readonly></p>
                 
             </div><!--total-prod-->
         </div><!--center-->
     </section>
 
     <div class="modalId">
-        <div class="popup">
+        <div class="popup" id="pop-up">
             <div class="popup-close">
                 x
             </div>
             <div class="popup-content">
                 <h2>Qual o valor do produto a ser adicionado?</h2>
-                <input type="number" class="valorpago" id="valorpago" step="0.01">
-                <button class="okdok" id="okdok">Ok</button>
+                <input type="number" class="valor-pago" id="valor-pago" step="0.01">
+                <button class="ok-dok" id="ok-dok">Ok</button>
             </div>
         </div>
     </div>
