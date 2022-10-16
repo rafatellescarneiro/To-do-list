@@ -46,7 +46,6 @@ function atualizarTela(){
     const item = document.createElement('label');
     const box = document.createElement('input');
     const span = document.createElement('span');
-    const paragraph = document.createElement('p');
 
     box.id = "checkbox";
     box.type = "checkbox";
@@ -55,16 +54,15 @@ function atualizarTela(){
     item.id = element.id
     item.classList.add('listados')
 
-    span.id = item.id;
-    span.innerHTML = element.nome
-    paragraph.id = item.id
-    paragraph.classList.add('paragraphClass')
+    for(let i = 0; i < valores.length; i++){
+      var valueProduct = valores[i];
+      span.id = item.id;
+    span.innerHTML = `Item: ${element.nome} | Valor: ${valueProduct}`
+    }
 
     saida.appendChild(item)
     item.appendChild(span)
-    span.appendChild(paragraph)
-    paragraph.appendChild(box)
-    
+    span.appendChild(box)
 
     totais()
 
@@ -110,6 +108,7 @@ function limparLista(item){
   var listaLimpa = confirm('Deseja limpar toda lista?')
   if(listaLimpa === true){
         listados.splice(item);
+        valores.splice(item)
       }
   salvar();
   atualizarTela();
@@ -121,7 +120,9 @@ function removerSelecionado(event) {
   ckList.forEach(function(el) {
     el.parentElement.parentElement.remove();
     let position = listados.indexOf(event.target.value);
+    let valuePosition = valores.indexOf(event.target.value)
     listados.splice(position, 1);
+    valores.splice(valuePosition, 1)
     return
   });
   salvar();
@@ -131,13 +132,12 @@ function removerSelecionado(event) {
 function precificar(){
   if(valor.value){
     valores.push(valor.value)
-    //let paragraph = document.getElementsByClassName('paragraphClass')
-    
+    valor.value = null  
     salvar();
     atualizarTela();
   }else{
     alert('Insira um valor maior que zero');
-    valor.value = 0.00
+    valor.value = null
   }
 }
 
