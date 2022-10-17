@@ -2,69 +2,109 @@ const adicionar = document.getElementById("botao-add");
 const limpar = document.getElementById("botao-del");
 const remover = document.getElementById("del-check");
 const entrada = document.getElementById("nome-prod");
-const valor = document.getElementById("valor-pago");
-const confirma = document.getElementById("ok-dok"); 
-let total = document.getElementById("add-valor");
+const confirma = document.getElementById("ok-dok");
+let valor = document.getElementById("valor-pago");
 let saida = document.getElementById("main-box");
+
+let valores = []
 let listados = [];
-let valores = [];
+
+function addItem(){
+  if(entrada.value){
+    listados.push({
+      id: listados.length,
+      checked: false,
+      name: entrada.value
+    })
+
+    entrada.value = ''
+    salvar();
+    atualizarTela()
+  }
+}
 
 const listaJSON = localStorage.getItem('listados')
-const valorJSON = localStorage.getItem('valores')
+const valoresJSON = localStorage.getItem('valores')
 
 if(listaJSON){
   listados = JSON.parse(listaJSON)
+  addItem()
   atualizarTela()
 }
-if(valorJSON){
-  valores = JSON.parse(valorJSON)
+
+if(valoresJSON){
+  valores = JSON.parse(valoresJSON)
+  addItem()
   atualizarTela()
 }
 
 function salvar(){
   const listaJSON = JSON.stringify(listados);
   localStorage.setItem('listados', listaJSON);
-
-  const valorJSON = JSON.stringify(valores);
-  localStorage.setItem('valores', valorJSON)
+  const valoresJSON = JSON.stringify(valores);
+  localStorage.setItem('valores', valoresJSON);
 }
 
-function totais(){
+function totalSoma(){
   let soma = 0
   for(let i = 0; i< valores.length; i++){
-    soma += parseFloat(valores[i])
+    soma += parseFloat(valores[i].valor)
     document.getElementById("add-valor").placeholder = soma
   }
-}
+  salvar();
+} 
 
 function atualizarTela(){
-  let saida = document.getElementById('main-box') 
-  saida.innerHTML = ''
 
-  listados.forEach(function (element){
+  let saida = document.getElementById('tabela-li') 
+
+  saida.innerText = ''
+
+  for(let i = 0; i< listados.length; i++){
+    
 
     const item = document.createElement('label');
     const box = document.createElement('input');
     const span = document.createElement('span');
+    const val = document.createElement('p');
 
     box.id = "checkbox";
     box.type = "checkbox";
     box.checked = false;
 
-    item.id = element.id
+    item.id = listados[i].id
     item.classList.add('listados')
 
-    for(let i = 0; i < valores.length; i++){
-      var valueProduct = valores[i];
-      span.id = item.id;
-    span.innerHTML = `Item: ${element.nome} | Valor: ${valueProduct}`
+    span.id = item.id;
+    span.innerText = `Item: ${listados[i].name}`
+    if(!valores.value){
+      valores.value = 0
     }
+    val.innerHTML = ` | Valor: ${valores.value}` 
+    
+    confirma.addEventListener('click', function(){
+      valores.forEach(()=>{
+        if(valor.value){
+          valores.push({
+            valor: valor.value
+            })
+            val.innerHTML = ` | Valor: ${valores.value}` 
+            listados[i].valor = valores.valor
+            valor.value = ''
+            salvar();
+            addItem()
+            atualizarTela()
+          }
+          console.log(listados[i].valor)
+      })
+    })
 
     saida.appendChild(item)
     item.appendChild(span)
-    span.appendChild(box)
-
-    totais()
+    span.appendChild(val)
+    item.appendChild(box)
+    
+    totalSoma();
 
     const popup = document.querySelector(".modalId");
 
@@ -83,70 +123,39 @@ function atualizarTela(){
         popup.style.display = 'none';  
       } 
     }
-  });
-}
-
-
-function addItem(){
-  if((entrada.value).length >= 3){
-
-    listados.push({
-      id: listados.length,
-      checked: false,
-      nome: entrada.value
-    })
-    entrada.value = ''
-    salvar();
-    atualizarTela();
-  }else{
-    alert('Insira um item com 3 ou mais caracteres');
-    entrada.value = ''
-  }
+  };
+    
 }
 
 function limparLista(item){
   var listaLimpa = confirm('Deseja limpar toda lista?')
   if(listaLimpa === true){
         listados.splice(item);
-        valores.splice(item)
+        valores.splice(item);
       }
   salvar();
   atualizarTela();
+  addItem()
 }
-
 
 function removerSelecionado(event) {
   let ckList = document.querySelectorAll("input[type=checkbox]:checked");
+
   ckList.forEach(function(el) {
     el.parentElement.parentElement.remove();
     let position = listados.indexOf(event.target.value);
-    let valuePosition = valores.indexOf(event.target.value)
+    let valpos = valores.indexOf(event.target.value);
     listados.splice(position, 1);
-    valores.splice(valuePosition, 1)
+    valores.splice(valpos, 1)
     return
   });
   salvar();
   atualizarTela();
 }
 
-function precificar(){
-  if(valor.value){
-    valores.push(valor.value)
-    valor.value = null  
-    salvar();
-    atualizarTela();
-  }else{
-    alert('Insira um valor maior que zero');
-    valor.value = null
-  }
-}
-
-
-
 adicionar.addEventListener('click', addItem)
 limpar.addEventListener('click', limparLista)
 remover.addEventListener('click', removerSelecionado)
-confirma.addEventListener('click', precificar)
 
 entrada.addEventListener('keydown', function (event) {
   
@@ -154,4 +163,4 @@ entrada.addEventListener('keydown', function (event) {
    
     addItem();
   }
-});
+})
