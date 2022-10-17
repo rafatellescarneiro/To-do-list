@@ -16,7 +16,6 @@ function addItem(){
       checked: false,
       name: entrada.value
     })
-
     entrada.value = ''
     salvar();
     atualizarTela()
@@ -48,7 +47,7 @@ function salvar(){
 function totalSoma(){
   let soma = 0
   for(let i = 0; i< valores.length; i++){
-    soma += parseFloat(valores[i].valor)
+    soma += parseFloat(valores[i])
     document.getElementById("add-valor").placeholder = soma
   }
   salvar();
@@ -62,7 +61,6 @@ function atualizarTela(){
 
   for(let i = 0; i< listados.length; i++){
     
-
     const item = document.createElement('label');
     const box = document.createElement('input');
     const span = document.createElement('span');
@@ -76,28 +74,21 @@ function atualizarTela(){
     item.classList.add('listados')
 
     span.id = item.id;
-    span.innerText = `Item: ${listados[i].name}`
-    if(!valores.value){
-      valores.value = 0
-    }
-    val.innerHTML = ` | Valor: ${valores.value}` 
+    span.innerText = `Item: ${listados[i].name} `
+    
     
     confirma.addEventListener('click', function(){
-      valores.forEach(()=>{
-        if(valor.value){
-          valores.push({
-            valor: valor.value
-            })
-            val.innerHTML = ` | Valor: ${valores.value}` 
-            listados[i].valor = valores.valor
-            valor.value = ''
-            salvar();
-            addItem()
-            atualizarTela()
+      if(valor.value){
+        valores.push(valor.value)
+        val.innerHTML = ` | Valor: ${valores.value}` 
+        listados[i].valor = valores.valor
+        valor.value = ''
+        salvar();
+        addItem()
+        atualizarTela()
           }
           console.log(listados[i].valor)
       })
-    })
 
     saida.appendChild(item)
     item.appendChild(span)
@@ -132,7 +123,8 @@ function limparLista(item){
   if(listaLimpa === true){
         listados.splice(item);
         valores.splice(item);
-      }
+        document.getElementById('add-valor').placeholder = 0
+      } 
   salvar();
   atualizarTela();
   addItem()
